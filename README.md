@@ -1,5 +1,16 @@
-Logging support for Scalarium
-=============================
+Logging Support for Chef
+========================
+
+This cookbook is suitable for use with any Chef environment running on Ubuntu 10.04 or greater.
+
+Requirements:
+
+- Logentries account - sign up at <https://logentries.com/>
+
+Detailed instructions on using Logentries with Scalarium are included below.
+
+Logging Support for Scalarium
+-----------------------------
 
 Requirements:
 
