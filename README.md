@@ -21,10 +21,15 @@ Enable custom cookbooks.
 To configure the Logentries cookbook, go to Actions -> Edit Cloud and add the following to the Custom JSON field.
 
     "le" : {
-    	"userkey"			: "your user key"			--> see logentries.com/getsetup for information on obtaining your user key
-    	"hostname"			: "Hostname"				--> optional - default hostname is "Scalarium"
-    	"logs_to_follow"	: ["path_to_log_file 1", ..]--> list of paths to log files you want to follow
+    	"userkey"			: "logentries_userkey"
+    	"hostname"			: "logentries_hostname"
+    	"logs_to_follow"	: ["path_to_log_file 1", ..]
     }
+where
+
+- ``logentries_userkey`` is the userkey obtained by following the instructions at <https://logentries.com/getsetup> --> go with the api --> scalarium
+- ``logentries_hostname`` is the desired name for this machine in your Logentries account. Optional - default hostname is "Scalarium".
+- ``["path_to_log_file 1", ..]`` is the list of paths to log files you want to follow.
 
 Add a role with at least one instance to the cloud, if none already exist, and add `Logentries` to the 'setup' action in Custom Recipes.
 
