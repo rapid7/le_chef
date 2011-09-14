@@ -18,9 +18,9 @@ Attributes (as JSON):
     
 When adding log files to follow, change to:
 
-        "le" : {
-            "logs_to_follow" : ["path_to_log_file 1", ..]
-        }
+    "le" : {
+        "logs_to_follow" : ["path_to_log_file 1", ..]
+    }
 
 Logging Support for Scalarium
 -----------------------------
