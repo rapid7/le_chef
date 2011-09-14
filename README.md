@@ -6,8 +6,21 @@ This cookbook is suitable for use with any Chef environment running on Ubuntu 10
 Requirements:
 
 - Logentries account - sign up at <https://logentries.com/>
+- Logentries userkey - <https://logentries.com/getsetup/> --> go with the api --> Chef Recipes
 
-Detailed instructions on using Logentries with Scalarium are included below.
+Attributes (as JSON):
+
+    "le" : {
+        "userkey"			: "logentries_userkey"
+    	"hostname"			: "logentries_hostname"
+    	"logs_to_follow"	: ["path_to_log_file 1", ..]
+    }
+    
+When adding log files to follow, change to:
+
+        "le" : {
+            "logs_to_follow" : ["path_to_log_file 1", ..]
+        }
 
 Logging Support for Scalarium
 -----------------------------
@@ -38,7 +51,7 @@ To configure the Logentries cookbook, go to Actions -> Edit Cloud and add the fo
     }
 where
 
-- ``logentries_userkey`` is the userkey obtained by following the instructions at <https://logentries.com/getsetup> --> go with the api --> scalarium
+- ``logentries_userkey`` is the userkey obtained by following the instructions at <https://logentries.com/getsetup> --> Go with the api --> Scalarium
 - ``logentries_hostname`` is the desired name for this machine in your Logentries account. Optional - default hostname is "Scalarium".
 - ``["path_to_log_file 1", ..]`` is the list of paths to log files you want to follow.
 
