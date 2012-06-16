@@ -22,6 +22,12 @@ When adding log files to follow, change to:
         "logs_to_follow" : ["path_to_log_file 1", ..]
     }
 
+
+Updating the Logentries Agent
+=============================
+
+Restarting the Chef script will allow the recipe to install any updates to the logentries agent.
+
 Logging Support for Scalarium
 -----------------------------
 
