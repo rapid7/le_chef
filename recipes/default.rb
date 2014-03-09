@@ -26,7 +26,7 @@ end
 
 package 'logentries'
 
-execute "le register --user-key #{node[:le][:userkey]}  --name='#{node[:le][:hostname]}'"
+execute "le register --user-key #{node[:le][:userkey]}  --name='#{node[:le][:hostname]}' || echo Already registered"
 
 package 'logentries-daemon'
 
