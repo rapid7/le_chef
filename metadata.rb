@@ -1,3 +1,4 @@
+name "le_chef"
 maintainer "Caroline Fenlon"
 maintainer_email "carfenlon@gmail.com"
 license "Apache 2.0"
