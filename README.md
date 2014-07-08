@@ -1,77 +1,49 @@
-Logging Support for Chef
-========================
+Logentries Chef Cookbook
+==============
 
-This cookbook is suitable for use with any Chef environment running on Ubuntu 10.04 or greater.
+Installs/Configures the Logentries agent to allow logging to [Logentries](https://logentries.com)
 
-Requirements:
+Requirements
+------------
 
-- Logentries account - sign up at <https://logentries.com/>
-- Logentries userkey - <https://logentries.com/getsetup/> --> go with the api --> Chef Recipes
+### Platform:
 
-Attributes (as JSON):
+* Debian
+* Ubuntu
+* Rhel
 
-    "le" : {
-        "userkey"			: "logentries_userkey"
-    	"hostname"			: "logentries_hostname"
-    	"logs_to_follow"	: ["path_to_log_file 1", ..]
-    }
-    
-When adding log files to follow, change to:
+### Cookbooks:
 
-    "le" : {
-        "logs_to_follow" : ["path_to_log_file 1", ..]
-    }
+The following are dependencies of the Logentries cookbook
 
+* apt
+* yum
+
+Attributes
+----------
+
+### Default
+
+* `node['le']['account_key']` - your Logentries account_key (this can be found following [this link](https://logentries.com/doc/accountkey/))
+* `node['le']['hostname']` - sets the hostname of the log to the machine name, defaults to `node['hostname']`
+* `node['le']['logs_to_follow']` - An array of logs to follow (use absolute paths)
+
+Usage
+-----
+
+Put depends 'yum', and 'apt', in your metadata.rb to gain access to the resources.
 
 Updating the Logentries Agent
 =============================
 
-Restarting the Chef script will allow the recipe to install any updates to the logentries agent.
+Restarting the Chef script will allow the recipe to install any updates to the Logentries agent.
 
-Logging Support for Scalarium
------------------------------
+License and Author
+------------------
 
-Requirements:
+Author:: Joe Heung (<joe.Heung@logentries.com>)
+Author:: Caroline Fenlon
 
-- Scalarium account - <http://scalarium.com/>
-- Logentries account - sign up at <https://logentries.com/> 
+Copyright (C) 2014, RevelOps Inc.
 
-See also <http://support.scalarium.com/kb/tutorials/customizing-your-scalarium-cloud-using-chef-configuring-custom-cookbooks/>
-
-Set up a cloud in Scalarium, with Ubuntu 10.04 or higher as the default operating system.
-
-Open the cloud and go to Actions -> Manage Cookbooks.
-
-Enable custom cookbooks.
-
-- Repository Type: Git
-- Repository URL: git://github.com/logentries/le_chef.git
-- Deploy SSH Key, Brach/Revision: leave empty
-
-To configure the Logentries cookbook, go to Actions -> Edit Cloud and add the following to the Custom JSON field.
-
-    "le" : {
-    	"userkey"			: "logentries_userkey"
-    	"hostname"			: "logentries_hostname"
-    	"logs_to_follow"	: ["path_to_log_file 1", ..]
-    }
-where
-
-- ``logentries_userkey`` is the userkey obtained by following the instructions at <https://logentries.com/getsetup> --> Go with the api --> Scalarium
-- ``logentries_hostname`` is the desired name for this machine in your Logentries account. Optional - default hostname is "Scalarium".
-- ``["path_to_log_file 1", ..]`` is the list of paths to log files you want to follow.
-
-Add a role with at least one instance to the cloud, if none already exist, and add `Logentries` to the 'setup' action in Custom Recipes.
-
-When the instance is started, the server will be registered and the given log files will be followed.
-
-To add more log files, first delete the JSON from the cloud custom JSON. 
-
-Go to Actions > Execute Recipes.
-
-- Recipes: Logentries
-- Custom JSON: 
-
-        "le" : {
-        	"logs_to_follow" : ["path_to_log_file 1", ..]
-        }
+License:: All rights reserved

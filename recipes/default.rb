@@ -1,9 +1,9 @@
 #
-# Author:: Caroline Fenlon <carfenlon@gmail.com>
-# Cookbook Name:: logentries
+# Author:: Joe Heung <joe.heung@logentries.com>
+# Cookbook Name:: le_chef
 # Recipe:: default
 #
-# Copyright 2011 Logentries, JLizard
+# Copyright 2014 Logentries, JLizard
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,17 +16,30 @@
 # limitations under the License.
 #
 
-apt_repository 'logentries' do
-  uri          'http://rep.logentries.com/'
-  distribution node['lsb']['codename']
-  components   ['main']
-  keyserver    'pgp.mit.edu'
-  key          'C43C79AD'
+if platform_family?('rhel')
+  yum_repository 'logentries' do
+    description 'Logentries repo'
+    baseurl 'http://rep.logentries.com/rh/\$basearch'
+    gpgkey 'http://rep.logentries.com/RPM-GPG-KEY-logentries'
+    action :create
+  end
+end
+
+if platform_family?('debian')
+  apt_repository 'logentries' do
+    uri          'http://rep.logentries.com/'
+    distribution node['lsb']['codename']
+    components   ['main']
+    keyserver    'pgp.mit.edu'
+    key          'C43C79AD'
+  end
 end
 
 package 'logentries'
 
-execute "le register --user-key #{node[:le][:userkey]}  --name='#{node[:le][:hostname]}'"
+execute "le register --user-key #{node['le']['account_key']} --name='#{node['le'][:hostname]}'" do
+  not_if 'le whoami'
+end
 
 package 'logentries-daemon'
 
