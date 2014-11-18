@@ -27,6 +27,8 @@ module FollowLogs
 
   # Script to follow a log
   def follow(log)
-    execute "le follow #{log}"
+    execute "le follow #{log}" do
+      not_if "le followed #{log}"
+    end
   end
 end
