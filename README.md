@@ -41,8 +41,8 @@ Restarting the Chef script will allow the recipe to install any updates to the L
 License and Author
 ------------------
 
-Author:: Joe Heung (<joe.Heung@logentries.com>)
-Author:: Caroline Fenlon
+* Author:: Joe Heung (<joe.heung@logentries.com>)
+* Author:: Caroline Fenlon
 
 Copyright (C) 2014, RevelOps Inc.
 
