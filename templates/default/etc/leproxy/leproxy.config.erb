@@ -1,0 +1,18 @@
+{
+  "reporter": {
+    "user_key": <%= node['le']['account_key'] %>,
+    "interval": <%= node['le']['datahub']['interval'] %>,
+    "token": "not used",
+    "autoupdate": <%= node['le']['datahub']['autoupdate'] %>,
+    "update_datahub": <%= node['le']['datahub']['update_datahub'] %>
+  },
+  "backend": {
+    "local_path": <%= node['le']['datahub']['local_path'] %>,
+    "amazon_s3_secret_key": <%= node['le']['datahub']['amazon_s3_secret_key'] %>,
+    "amazon_s3_account_id": <%= node['le']['datahub']['amazon_s3_account_id'] %>,
+    "amazon_s3_bucket": <%= node['le']['datahub']['amazon_s3_bucket'] %>,
+    "amazon_s3_encryption_key_file": <%= node['le']['datahub']['amazon_s3_encryption_key_file'] %>
+  },
+  "rules": <%= node['le']['datahub']['rules'] %>,
+  "filters": <%= node['le']['datahub']['filters'] %>
+}
