@@ -1,5 +1,5 @@
 default['le']['datahub']['version'] = '1.2.0.261'
-default['le']['datahub']['checksum'] = '69da5a06d83ad60a49fef3d561f6f781cbb3bc55'
+default['le']['datahub']['checksum'] = '1dc4c424c6ecc1cf45817609e91272785908969797c94092ec594bf1f8bccdf6'
 
 default['le']['datahub']['interval'] = 5
 default['le']['datahub']['autoupdate'] = true

@@ -28,7 +28,7 @@ if platform_family?('debian')
     action :create_if_missing
     source "http://rep.logentries.com/datahub/#{datahub_package}"
     mode 0644
-    checksum default['le']['datahub']['checksum']
+    checksum node['le']['datahub']['checksum']
   end
 
   dpkg_package "DataHub" do
