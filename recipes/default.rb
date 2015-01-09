@@ -37,9 +37,14 @@ end
 
 package 'logentries'
 
-execute "le register --user-key #{node['le']['account_key']} --name='#{node['le'][:hostname]}'" do
-  not_if 'le whoami'
-end
+account_key = node['le']['account_key']
+hostname = node['le']['hostname']
+ip = node['le']['datahub']['server_ip']
+port = node['le']['datahub']['port']
+
+node['le']['datahub']['enable'] ?
+    execute("le register --user-key #{account_key} --name='#{hostname}' --suppress-ssl --datahub=#{ip}:#{port}") { not_if 'le whoami' } :
+    execute("le register --user-key #{account_key} --name='#{hostname}'") { not_if 'le whoami' }
 
 package 'logentries-daemon'
 
