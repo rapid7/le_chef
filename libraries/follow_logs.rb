@@ -19,19 +19,39 @@ module FollowLogs
 
   # Follow a list of logs from the JSON config file
   def follow_logs()
-    node['le']['logs_to_follow'].each do |glob|
-      log = Dir.glob(glob)
-      log = [glob] if log.empty?
-      log.each do |l|
-        follow(l)
+    # do we have a hash or an array defining the logs to follow?
+    if node['le']['logs_to_follow'].instance_of? Chef::Node::ImmutableArray
+      node['le']['logs_to_follow'].each do |glob|
+        log = Dir.glob(glob)
+        log = [glob] if log.empty?
+        log.each do |l|
+          follow(l, nil)
+        end
+      end
+    elsif node['le']['logs_to_follow'].instance_of? Chef::Node::ImmutableMash
+      node['le']['logs_to_follow'].each do |log_name, glob|
+        log = Dir.glob(glob)
+        log = [glob] if log.empty?
+        log.each do |l|
+          follow(l, log_name)
+        end
+      end
+    else
+      raise TypeError, "An array or a hash is needed to provide the log files to follow."
+    end
+  end
+
+  # Script to follow a log
+  def follow(log, log_name)
+    if not log_name
+      execute "le follow #{log}" do
+        not_if "le followed #{log}"
+      end
+    else
+      execute "le follow #{log} --name=#{log_name}" do
+        not_if "le followed #{log}"
       end
     end
   end
-end
 
-# Script to follow a log
-def follow(log)
-  execute "le follow #{log}" do
-    not_if "le followed #{log}"
-  end
-end
+end # module
