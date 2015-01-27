@@ -6,7 +6,7 @@ description       'Installs and configures the logentries agent'
 long_description  'Installs the Logentries python agent and configures it to follow logs specified in a JSON object'
 recipe            'logentries::default', 'Downloads the agent and sets up logging'
 recipe            'logentries::datahub', 'Installs the DataHub for advanced log routing'
-version '0.1.0'
+version '0.2.0'
 
 supports 'ubuntu'
 supports 'rhel'
