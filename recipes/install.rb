@@ -17,9 +17,22 @@ if platform_family?('debian')
   end
 
   # we don't want installing logentries-daemon to start it if we don't have a
-  # config ready; if we want it to happen, chef will do it
+  # config ready; if we want it to start, chef will handle it once its configed
+  policy_rc_d = <<EOF
+#!/bin/bash
+while [ $# -gt 3 ]; do
+  shift
+done
+
+if [ $1 = logentries ]; then
+  exit 101
+fi
+
+exit 0
+EOF
+
   file '/usr/sbin/policy-rc.d' do
-    content 'exit 101'
+    content policy_rc_d
     mode '0755'
     owner 'root'
     group 'root'
