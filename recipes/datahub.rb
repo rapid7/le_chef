@@ -39,6 +39,9 @@ end
 
 template "#{node['le']['datahub']['local_path']}/leproxy.config" do
   source 'etc/leproxy/leproxy.config.erb'
+  variables( node['le']['datahub'].to_hash.tap do |h|
+              h[:user_key] = node['le']['account_key']
+            end)
 end
 
 service 'leproxy' do
