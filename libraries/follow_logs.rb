@@ -46,10 +46,12 @@ module FollowLogs
     if not log_name
       execute "le follow #{log}" do
         not_if "le followed #{log}"
+        notifies :restart, 'service[logentries]'
       end
     else
       execute "le follow #{log} --name=#{log_name}" do
         not_if "le followed #{log}"
+        notifies :restart, 'service[logentries]'
       end
     end
   end
