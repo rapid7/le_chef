@@ -15,34 +15,24 @@ if platform_family?('debian')
     keyserver    'pgp.mit.edu'
     key          'C43C79AD'
   end
+end
 
-  # we don't want installing logentries-daemon to start it if we don't have a
-  # config ready; if we want it to start, chef will handle it once its configed
-  policy_rc_d = <<EOF
-#!/bin/bash
-while [ $# -gt 3 ]; do
-  shift
-done
-
-if [ $1 = logentries ]; then
-  exit 101
-fi
-
-exit 0
-EOF
-
-  file '/usr/sbin/policy-rc.d' do
-    content policy_rc_d
-    mode '0755'
-    owner 'root'
-    group 'root'
-
-    action :create_if_missing
-    notifies :delete, 'file[/usr/sbin/policy-rc.d]'
-  end
+#TODO: do something different (or nothing?) for Red Hat?
+# I imagine its at least a different path; I don't have
+# any RPM machines around to look at.
+dont_run_file = '/etc/default/logentries_not_to_be_run'
+file dont_run_file do
+  action :nothing
 end
 
 package 'logentries'
+deamon_package_resource = package 'logentries-daemon' do
+  notifies :delete, "file[#{dont_run_file}]", :immediately
+end
 
-
-package 'logentries-daemon'
+# if logentries-daemon package is not already installed during compile phase
+# of this chef run, we want to create the init script's "dont_run" file long
+# enough to install it (to prevent it from auto-starting with no config)
+if deamon_package_resource.provider_for_action(:install).load_current_resource.version.nil?
+  resources("file[#{dont_run_file}]").action(:create)
+end
