@@ -16,47 +16,6 @@
 # limitations under the License.
 #
 
-if platform_family?('rhel')
-  yum_repository 'logentries' do
-    description 'Logentries repo'
-    baseurl 'http://rep.logentries.com/rh/\$basearch'
-    gpgkey 'http://rep.logentries.com/RPM-GPG-KEY-logentries'
-    action :create
-  end
-end
+include_recipe 'le_chef::install'
+include_recipe 'le_chef::configure'
 
-if platform_family?('debian')
-  apt_repository 'logentries' do
-    uri          'http://rep.logentries.com/'
-    distribution node['lsb']['codename']
-    components   ['main']
-    keyserver    'pgp.mit.edu'
-    key          'C43C79AD'
-  end
-end
-
-package 'logentries'
-
-account_key = node['le']['account_key']
-hostname = node['le']['hostname']
-ip = node['le']['datahub']['server_ip']
-port = node['le']['datahub']['port']
-
-node['le']['datahub']['enable'] ?
-    execute("le register --user-key #{account_key} --name='#{hostname}' --suppress-ssl --datahub=#{ip}:#{port}") { not_if 'le whoami' } :
-    execute("le register --user-key #{account_key} --name='#{hostname}'") { not_if 'le whoami' }
-
-package 'logentries-daemon'
-
-class Chef::Recipe
-  include FollowLogs
-end
-
-# Follow logs from the JSON config
-follow_logs()
-
-# Start the service
-service 'logentries' do
-  supports :stop => true, :start => true, :restart => true
-  action [ :restart ]
-end
