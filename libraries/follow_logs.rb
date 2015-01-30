@@ -23,7 +23,6 @@ module FollowLogs
     if node['le']['logs_to_follow'].instance_of? Chef::Node::ImmutableArray
       node['le']['logs_to_follow'].each do |glob|
         log = Dir.glob(glob)
-        log = [glob] if log.empty?
         log.each do |l|
           follow(l, nil)
         end
@@ -31,7 +30,6 @@ module FollowLogs
     elsif node['le']['logs_to_follow'].instance_of? Chef::Node::ImmutableMash
       node['le']['logs_to_follow'].each do |log_name, glob|
         log = Dir.glob(glob)
-        log = [glob] if log.empty?
         log.each do |l|
           follow(l, log_name)
         end
