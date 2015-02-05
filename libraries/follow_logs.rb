@@ -17,41 +17,47 @@
 
 module FollowLogs
 
-  # Follow a list of logs from the JSON config file
   def follow_logs()
-    # do we have a hash or an array defining the logs to follow?
-    if node['le']['logs_to_follow'].instance_of? Chef::Node::ImmutableArray
-      node['le']['logs_to_follow'].each do |glob|
-        log = Dir.glob(glob)
-        log.each do |l|
-          follow(l, nil)
-        end
+    node['le']['logs_to_follow'].each do |l|
+      if l.instance_of? Chef::Node::ImmutableMash
+        follow(l[:name], l[:log], l[:token])
+      else
+        follow(nil, l, nil)
       end
-    elsif node['le']['logs_to_follow'].instance_of? Chef::Node::ImmutableMash
-      node['le']['logs_to_follow'].each do |log_name, glob|
-        log = Dir.glob(glob)
-        log.each do |l|
-          follow(l, log_name)
-        end
-      end
-    else
-      raise TypeError, "An array or a hash is needed to provide the log files to follow."
     end
   end
 
   # Script to follow a log
-  def follow(log, log_name)
-    if not log_name
-      execute "le follow #{log}" do
-        not_if "le followed #{log}"
+  def follow(name, path, token)
+    cmd="le follow #{path}"
+    if (!name || !token) && ! node['le']['pull-server-side-config']
+      raise 'You need to pass an array of hashes with pull-server-side-config=false'
+    end
+
+    if node['le']['pull-server-side-config']
+      if name
+        cmd +=" --name=#{name}"
+      end
+      execute cmd do
+        not_if "le followed #{path}"
         notifies :restart, 'service[logentries]'
       end
     else
-      execute "le follow #{log} --name=#{log_name}" do
-        not_if "le followed #{log}"
+      templ = "[#{name}]
+path=#{path}"
+      unless node['le']['datahub']['enable']
+        templ += "\n"
+        templ += "token=#{token}"
+      end
+      ruby_block 'append config' do
+        not_if "grep '\\[#{name}\\]' /etc/le/config"
+        block do
+          file = Chef::Util::FileEdit.new('/etc/le/config')
+          file.insert_line_if_no_match(/\[#{name}\]/, templ)
+          file.write_file
+        end
         notifies :restart, 'service[logentries]'
       end
     end
   end
-
-end # module
+end
