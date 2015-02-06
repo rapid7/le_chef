@@ -1,5 +1,5 @@
 # Default
-default['le']['account_key'] = '3927ba3a-e2fb-49cc-ad81-5a4057eb1fbc'
+default['le']['account_key'] = ''
 default['le']['hostname'] = node['hostname']
 
 default['le']['logs_to_follow'] = [{:name => 'syslog', :log => '/var/log/syslog'},{:name => 'varlog', :log => '/var/log/*.log'}]
