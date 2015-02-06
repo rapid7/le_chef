@@ -3,7 +3,7 @@
 # Cookbook Name:: le_chef
 # Recipe:: default
 #
-# Copyright 2014 Logentries, JLizard
+# Copyright 2015 Logentries, JLizard
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
