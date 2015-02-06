@@ -3,26 +3,39 @@ service 'logentries' do
   action :nothing
 end
 
-execute 'le register' do
-  command(lazy do
-    le = node['le']
-    cmd = "le register"
+le = node['le']
+if not le['pull-server-side-config']
+  execute 'logentries datahub from file' do
+    command(lazy do
 
-    cmd += " --user-key #{le['account_key']}"
-    cmd += " --name='#{le['hostname']}'"
+              cmd = "le reinit"
+              cmd += ' --pull-server-side-config=False'
 
-    datahub = le['datahub']
-    if datahub['enable']
-      cmd += ' --suppress-ssl' unless datahub['ssl']
-      cmd += " --datahub=#{datahub['server_ip']}:#{datahub['port']}"
-    end
+              datahub = le['datahub']
+              if datahub['enable']
+                cmd += ' --suppress-ssl' unless datahub['ssl']
+                cmd += " --datahub=#{datahub['server_ip']}:#{datahub['port']}"
+              end
 
-    cmd
-  end)
+              cmd
+            end)
 
-  not_if 'le whoami'
+    not_if 'grep pull-server-side-config /etc/le/config'
+    notifies :restart, 'service[logentries]'
+  end
+else
+  execute 'initialize logentries daemon' do
+    command(lazy do
+              cmd = "le register"
+              cmd += " --user-key #{le['account_key']}"
+              cmd += " --name='#{le['hostname']}'"
+              cmd
+            end)
 
-  notifies :restart, 'service[logentries]'
+    not_if 'le whoami'
+
+    notifies :restart, 'service[logentries]'
+  end
 end
 
 class Chef::Recipe

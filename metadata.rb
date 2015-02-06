@@ -7,7 +7,7 @@ long_description  'Installs the Logentries python agent and configures it to fol
 recipe            'le_chef::default',   'Downloads the agent and sets up logging'
 recipe            'le_chef::install',    'Download and install the agent from le repo'
 recipe            'le_chef::configure', 'Register and le start agent, follow files'
-version           '0.1.1'
+version           '0.1.2'
 
 supports 'ubuntu'
 supports 'rhel'
