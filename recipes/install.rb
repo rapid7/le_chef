@@ -1,20 +1,19 @@
-if platform_family?('rhel')
-  yum_repository 'logentries' do
-    description 'Logentries repo'
-    baseurl 'http://rep.logentries.com/rh/\$basearch'
-    gpgkey 'http://rep.logentries.com/RPM-GPG-KEY-logentries'
-    action :create
-  end
-end
-
-if platform_family?('debian')
-  apt_repository 'logentries' do
-    uri          'http://rep.logentries.com/'
-    distribution node['lsb']['codename']
-    components   ['main']
-    keyserver    'pgp.mit.edu'
-    key          'C43C79AD'
-  end
+case node['platform']
+  when 'debian', 'ubuntu'
+    apt_repository 'logentries' do
+      uri 'http://rep.logentries.com/'
+      distribution node['lsb']['codename']
+      components ['main']
+      keyserver 'pgp.mit.edu'
+      key 'C43C79AD'
+    end
+  when 'centos', 'redhat', 'amazon', 'scientific'
+    yum_repository 'logentries' do
+      description 'Logentries repo'
+      baseurl 'http://rep.logentries.com/rh/\$basearch'
+      gpgkey 'http://rep.logentries.com/RPM-GPG-KEY-logentries'
+      action :create
+    end
 end
 
 #TODO: do something different (or nothing?) for Red Hat?

@@ -1,4 +1,4 @@
-name              'le_chef'
+name              'logentries'
 maintainer        'Logentries'
 maintainer_email  'support@logentries.com'
 license           'Apache 2.0'
