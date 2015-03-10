@@ -3,7 +3,7 @@
 # Cookbook Name:: logentries
 # Recipe:: configure
 #
-# Copyright 2015 Logentries, JLizard
+# Copyright 2015 Logentries, Revelops Ireland Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

@@ -34,7 +34,6 @@ Attributes
 
 ### Example of logs_to_follow
 * caveats - name needs to be unique
-* globbing is enabled via the agent
 
 Usage
 -----
@@ -43,19 +42,20 @@ There are 3 main scenarios in which the Logentries Linux Agent can be run.
 #### Default (no datahub and pull configuration from logentries.com)
 ```ruby
 override['le']['account_key'] = <logentries_account_key>
-override['le']['logs_to_follow'] = ['/var/log/syslog']'
+override['le']['logs_to_follow'] = ['/var/log/syslog']
 override['le']['logs_to_follow'] = [{:name => 'syslog', :log => '/var/log/syslog'}]
 ```
 
-This is the normal scenario where you install the agent, override node['le']['account_key'] and your logs_to_follow as above.
-There are two ways of passing the logs to follow, as an array of logs or an array of hashes with the name of the log and the location of the log.
+This is the normal case where you send the data directly to Logentries and get the configuration for your logs from Logentries as well.
+To send data to logentries you will have to override node['le']['account_key']
 
 #### Local configuration only
 ```ruby
 override['le']['pull-server-side-config'] = false
 override['le']['logs_to_follow'] = [{:name => 'syslog', :log => '/var/log/syslog', :token => '00000000-0000-0000-0000-000000000000'}]
 ```
-This scenario is for users who wish to push a config up knowing their logs and tokens but do not want to make an API call to fetch this data.
+To send data to Logentries without specifying an account key, you can set override['le']['pull-server-side-config'] to false. This will only send the logs specified in the configuration file without contacting Logentries. In this case you have to create the logs in advance and know the tokens as well.
+
 
 #### Datahub
 ```ruby
