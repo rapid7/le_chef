@@ -1,4 +1,4 @@
-Logentries Chef Cookbook
+Logentries_agent Chef Cookbook
 ==============
 
 Installs/Configures the Logentries agent to allow logging to [Logentries](https://logentries.com)

@@ -1,6 +1,6 @@
 #
 # Author:: Joe Heung <joe.heung@logentries.com>
-# Cookbook Name:: logentries
+# Cookbook Name:: logentries_agent
 # Recipe:: install
 #
 # Copyright 2015 Logentries, Revelops Ireland Ltd
