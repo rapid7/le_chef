@@ -16,6 +16,6 @@
 # limitations under the License.
 #
 
-include_recipe 'le_chef::install'
-include_recipe 'le_chef::configure'
+include_recipe 'logentries::install'
+include_recipe 'logentries::configure'
 
