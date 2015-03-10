@@ -1,6 +1,6 @@
 #
 # Author:: Joe Heung <joe.heung@logentries.com>
-# Cookbook Name:: le_chef
+# Cookbook Name:: logentries_agent
 # Recipe:: default
 #
 # Copyright 2015 Logentries, Revelops Ireland Ltd
@@ -16,6 +16,6 @@
 # limitations under the License.
 #
 
-include_recipe 'logentries::install'
-include_recipe 'logentries::configure'
+include_recipe 'logentries_agent::install'
+include_recipe 'logentries_agent::configure'
 
