@@ -3,7 +3,7 @@
 # Cookbook Name:: le_chef
 # Recipe:: default
 #
-# Copyright 2015 Logentries, JLizard
+# Copyright 2015 Logentries, Revelops Ireland Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,6 @@
 # limitations under the License.
 #
 
-include_recipe 'le_chef::install'
-include_recipe 'le_chef::configure'
+include_recipe 'logentries::install'
+include_recipe 'logentries::configure'
 
