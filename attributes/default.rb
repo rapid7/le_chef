@@ -13,5 +13,5 @@ default['le']['datahub']['port'] = 10000
 # Pull server side config
 default['le']['pull-server-side-config'] = true
 
-# PHP Key Server
+# PGP Key Server
 default['le']['pgp_key_server'] = 'pgp.mit.edu'
