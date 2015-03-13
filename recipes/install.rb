@@ -22,7 +22,7 @@ case node['platform']
       uri 'http://rep.logentries.com/'
       distribution node['lsb']['codename']
       components ['main']
-      keyserver 'pgp.mit.edu'
+      keyserver node['le']['pgp_key_server']
       key 'C43C79AD'
     end
   when 'centos', 'redhat', 'amazon', 'scientific'
