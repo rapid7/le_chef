@@ -42,17 +42,19 @@ if not le['pull-server-side-config']
     notifies :restart, 'service[logentries]'
   end
 else
-  execute 'initialize logentries daemon' do
-    command(lazy do
-              cmd = "le register"
-              cmd += " --user-key #{le['account_key']}"
-              cmd += " --name='#{le['hostname']}'"
-              cmd
-            end)
+  if le['register_with_logentries']
+    execute 'initialize logentries daemon' do
+      command(lazy do
+                cmd = "le register"
+                cmd += " --user-key #{le['account_key']}"
+                cmd += " --name='#{le['hostname']}'"
+                cmd
+              end)
 
-    not_if 'le whoami'
+      not_if 'le whoami'
 
-    notifies :restart, 'service[logentries]'
+      notifies :restart, 'service[logentries]'
+    end
   end
 end
 

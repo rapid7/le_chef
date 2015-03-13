@@ -15,3 +15,6 @@ default['le']['pull-server-side-config'] = true
 
 # PGP Key Server
 default['le']['pgp_key_server'] = 'pgp.mit.edu'
+
+# Set this to False to not register the node with the LogEntries server.
+default['le']['register_with_logentries'] = true
