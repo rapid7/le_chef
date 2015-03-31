@@ -32,7 +32,7 @@ module FollowLogs
   def follow(name, path, token, logset)
     cmd="le follow '#{path}'"
     if defined? logset
-      if (!name || !path) && ! node['le']['pull-server-side-config']
+      if (!name && !path) && ! node['le']['pull-server-side-config']
           raise 'You need to pass a name and path value for a logset'
       end
     else
