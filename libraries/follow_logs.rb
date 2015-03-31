@@ -31,7 +31,7 @@ module FollowLogs
   # Script to follow a log
   def follow(name, path, token, logset)
     cmd="le follow '#{path}'"
-    unless logset.nil?
+    if defined? logset
       if (!name || !path) && ! node['le']['pull-server-side-config']
           raise 'You need to pass a name and path value for a logset'
       end
