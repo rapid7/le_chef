@@ -36,7 +36,7 @@ module FollowLogs
 
     if node['le']['pull-server-side-config']
       if name
-        cmd +=" --name=#{name}"
+        cmd +=" --name='#{name}'"
       end
       execute cmd do
         not_if "le followed '#{path}'"
