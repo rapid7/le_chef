@@ -8,8 +8,8 @@ recipe            'logentries_agent::default',   'Downloads the agent and sets u
 recipe            'logentries_agent::install',    'Download and install the agent from le repo'
 recipe            'logentries_agent::configure', 'Register and le start agent, follow files'
 version           '0.2.2'
-source_url        'https://github.com/logentries/le_chef'
-issues_url        'https://github.com/logentries/le_chef/issues'
+source_url        'https://github.com/logentries/le_chef'         if respond_to?(:source_url)
+issues_url        'https://github.com/logentries/le_chef/issues'  if respond_to?(:issues_url)
 
 
 supports 'ubuntu'
