@@ -30,8 +30,10 @@ module FollowLogs
   # Script to follow a log
   def follow(name, path, token)
     cmd="le follow '#{path}'"
-    if (!name || !token) && ! node['le']['pull-server-side-config']
-      raise 'You need to pass an array of hashes with pull-server-side-config=false'
+    if (!name || !token)
+      if node['le']['pull-server-side-config']
+        raise 'You need to pass an array of hashes with pull-server-side-config=false'
+      end
     end
 
     if node['le']['pull-server-side-config']
