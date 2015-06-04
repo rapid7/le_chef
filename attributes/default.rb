@@ -15,3 +15,7 @@ default['le']['pull-server-side-config'] = true
 
 # PGP Key Server
 default['le']['pgp_key_server'] = 'pgp.mit.edu'
+
+# Debian Release
+
+default['le']['deb'] = 'trusty'
