@@ -31,6 +31,7 @@ Attributes
 * `node['le']['datahub']['server_ip']` - IP of your datahub server
 * `node['le']['datahub']['port']` - port datahub is running on, normally port 10000
 * `node['le']['pull-server-side-config']` - Specifies whether to make an api call to pull configuration or not, by default this is set to true meaning an api call will be made to logentries.com. Default is true
+* `node['le']['deb']` - the distro of the debian platform , defaults to node['lsb']['codename'].
 
 ### Example of logs_to_follow
 * caveats - name needs to be unique
