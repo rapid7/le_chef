@@ -20,7 +20,7 @@ describe 'logentries_agent::default' do
     expect(service('logentries')).to be_running
   end
 
-  it 'enabless service' do
+  it 'enables service' do
     expect(service('logentries')).to be_enabled
   end
 end
