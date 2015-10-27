@@ -1,5 +1,7 @@
 # Default
 default['le']['account_key'] = ''
+default['le']['data_bag_name'] = 'le'
+default['le']['data_bag_item_name'] = 'le'
 default['le']['hostname'] = node['hostname']
 
 default['le']['logs_to_follow'] = [{:name => 'syslog', :log => '/var/log/syslog'},{:name => 'varlog', :log => '/var/log/*.log'}]
