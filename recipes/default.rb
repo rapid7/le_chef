@@ -18,4 +18,4 @@
 
 include_recipe 'logentries_agent::install'
 include_recipe 'logentries_agent::configure'
-
+include_recipe 'logentries_agent::follow_logs'
