@@ -39,22 +39,6 @@ module FollowLogs
         not_if "le followed '#{path}'"
         notifies :restart, 'service[logentries]'
       end
-    else
-      templ = "[#{name}]
-path=#{path}"
-      unless node['le']['datahub']['enable']
-        templ += "\n"
-        templ += "token=#{token}"
-      end
-      ruby_block 'append config' do
-        not_if "grep '\\[#{name}\\]' /etc/le/config"
-        block do
-          file = Chef::Util::FileEdit.new('/etc/le/config')
-          file.insert_line_if_no_match(/\[#{name}\]/, templ)
-          file.write_file
-        end
-        notifies :restart, 'service[logentries]'
-      end
     end
   end
 end
