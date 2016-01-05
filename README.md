@@ -28,7 +28,7 @@ Attributes
 * `node['le']['data_bag_name']` - Name of a data bag containing account key.
 * `node['le']['data_bag_item_name']` - Name of a data bag item containing account key.
 * `node['le']['hostname']` - sets the hostname of the log to the machine name, defaults to `node['hostname']`
-* `node['le']['logs_to_follow']` - An array of logs to follow or a hash of arrays
+* `node['le']['logs_to_follow']` - An array of logs to follow or an array of hashes
 * `node['le']['datahub']['enable']` - To send logs to datahub set this to true. Default is false
 * `node['le']['datahub']['server_ip']` - IP of your datahub server
 * `node['le']['datahub']['port']` - port datahub is running on, normally port 10000
