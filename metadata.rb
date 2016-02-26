@@ -11,11 +11,5 @@ version           '0.2.7'
 source_url        'https://github.com/logentries/le_chef' if respond_to?(:source_url)
 issues_url        'https://github.com/logentries/le_chef/issues' if respond_to?(:issues_url)
 
-
-supports 'ubuntu'
-supports 'rhel'
-
 depends 'apt'
 depends 'yum'
-
-suggests 'java', '~> 1.22'
