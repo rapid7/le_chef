@@ -1,0 +1,7 @@
+<% @logs.each do |logfile|%>
+[<%= logfile['name'] %>]
+<% logfile.each do |param,value|
+     next if (param == 'name') %>
+<%= param %>=<%= value %>
+<% end
+end %>

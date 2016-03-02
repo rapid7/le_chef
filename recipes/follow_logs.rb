@@ -1,10 +1,4 @@
 #
-# Author:: Joe Heung <joe.heung@logentries.com>
-# Cookbook Name:: logentries_agent
-# Recipe:: default
-#
-# Copyright 2015 Logentries, Revelops Ireland Ltd
-#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,6 +10,29 @@
 # limitations under the License.
 #
 
-include_recipe 'logentries_agent::install'
-include_recipe 'logentries_agent::configure'
-include_recipe 'logentries_agent::follow_logs'
+service 'logentries' do
+  supports :stop => true, :start => true, :restart => true
+  action :nothing
+end
+
+directory '/etc/le/conf.d' do
+  owner 'root'
+  group 'root'
+  mode '0755'
+
+  action :create
+end
+
+template '/etc/le/conf.d/logs.conf' do
+  source 'logs.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  cookbook 'logentries_agent'
+  variables ({
+    :logs => node['le']['logs_to_follow']
+  })
+  notifies :restart, 'service[logentries]'
+  action :create
+  not_if { node['le']['pull-server-side-config'] }
+end
