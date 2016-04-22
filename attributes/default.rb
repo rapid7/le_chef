@@ -17,3 +17,9 @@ default['le']['pull-server-side-config'] = true
 
 # PGP Key Server
 default['le']['pgp_key_server'] = 'pgp.mit.edu'
+
+# lsb is only available on linux nodes
+if node['lsb']
+  # Debian Release
+  default['le']['deb'] = node['lsb']['codename']
+end
