@@ -1,5 +1,5 @@
 name              'logentries_agent'
-maintainer        'Logentries'
+maintainer        'Rapid7'
 maintainer_email  'InsightOpsTeam@logentries.com'
 license           'Apache 2.0'
 description       'Installs and configures the logentries agent'
