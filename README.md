@@ -101,8 +101,3 @@ License and Author
 Copyright (C) 2015, RevelOps Inc.
 
 License:: All rights reserved
-
-Contact Support
-=============================
-
-Please email our support team at support@logentries.com if you need any help.

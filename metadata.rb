@@ -1,6 +1,6 @@
 name              'logentries_agent'
 maintainer        'Logentries'
-maintainer_email  'support@logentries.com'
+maintainer_email  'InsightOpsTeam@logentries.com'
 license           'Apache 2.0'
 description       'Installs and configures the logentries agent'
 long_description  'Installs the Logentries python agent and configures it to follow logs specified in a JSON object'
