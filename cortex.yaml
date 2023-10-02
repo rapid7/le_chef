@@ -1,0 +1,14 @@
+---
+info:
+  title: Le Chef
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/le_chef
+  x-cortex-tag: le-chef
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: insightidr
+openapi: 3.0.1
+servers:
+- url: "/"
